@@ -1,0 +1,29 @@
+name: build
+on:
+  workflow_call:
+    inputs:
+      docker-repo:
+        required: true
+        type: string
+      java-version:
+        required: false
+        type: string
+jobs:
+  basic-ubuntu-20:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: setup jdk ${{ inputs.docker-repo }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: ${{ inputs.java-version }}
+      - name: maven build
+        run: mvn clean install
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: target/*.jar
+      - name: docker build
+        run: docker buildx build -t ${{ inputs.docker-repo }}:$GITHUB_RUN_NUMBER .
