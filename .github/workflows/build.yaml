@@ -21,6 +21,11 @@ jobs:
           java-version: ${{ inputs.java-version }}
       - name: maven build
         run: mvn clean install
+      - name: SonarQube Scan
+        uses: kitabisa/sonarqube-action@v1.2.0
+        with:
+          host: 'http://localhost:9000/'
+          login: ${{ secrets.SONARQUBE_TOKEN }}
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
