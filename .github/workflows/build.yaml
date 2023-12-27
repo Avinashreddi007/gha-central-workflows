@@ -48,7 +48,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: target/*.jar
+          path: target/**
       - name: docker build
         run: docker buildx build -t ${{ inputs.docker-repo }}:$GITHUB_RUN_NUMBER .
 
