@@ -40,7 +40,7 @@ jobs:
 
   qa-aut:
     runs-on: self-hosted
-    needs: cd
+    needs: ci
     steps:
       - name: Checkout
         uses: actions/checkout@v3
