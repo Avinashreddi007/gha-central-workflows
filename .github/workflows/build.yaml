@@ -30,7 +30,7 @@ jobs:
       #     SONAR_HOST_URL: 'http://localhost:9000/'
       #     SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
       - name: sonar scan
-        run: mvn clean install sonar:sonar -Dsonar.host.url=http://localhost:9000/ -Dsonar.token=${{ secrets.sonar-token }}
+        run: mvn sonar:sonar -Dsonar.host.url=http://localhost:9000/ -Dsonar.token=${{ secrets.sonar-token }}
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
