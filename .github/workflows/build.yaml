@@ -8,6 +8,9 @@ on:
       java-version:
         required: false
         type: string
+    secrets:
+      sonar-token:
+        required: true
 jobs:
   ci:
     runs-on: self-hosted
@@ -27,7 +30,7 @@ jobs:
       #     SONAR_HOST_URL: 'http://localhost:9000/'
       #     SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
       - name: sonar scan
-        run: mvn clean install sonar:sonar -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
+        run: mvn clean install sonar:sonar -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=${{ secrets.sonar-token }}
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
