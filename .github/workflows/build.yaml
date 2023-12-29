@@ -6,8 +6,11 @@ on:
         required: true
         type: string
       java-version:
-        required: false
+        required: false  
         type: string
+      run-qa-aut:
+        required: false
+        type: boolean
     secrets:
       sonar-token:
         required: true
@@ -79,6 +82,7 @@ jobs:
   qa-aut:
     runs-on: self-hosted
     needs: cd
+    if: ${{ inputs.run-qa-aut == false }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
