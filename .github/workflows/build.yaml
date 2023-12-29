@@ -11,6 +11,7 @@ on:
       run-qa-aut:
         required: false
         type: boolean
+        default: false
     secrets:
       sonar-token:
         required: true
@@ -82,7 +83,7 @@ jobs:
   qa-aut:
     runs-on: self-hosted
     needs: cd
-    if: ${{ inputs.run-qa-aut == false }}
+    if: ${{ inputs.run-qa-aut == true }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
