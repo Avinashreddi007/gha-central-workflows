@@ -83,7 +83,7 @@ jobs:
   qa-aut:
     runs-on: self-hosted
     needs: cd
-    if: ${{ inputs.run-qa-aut == true }}
+    if: ${{ inputs.run-qa-aut == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
