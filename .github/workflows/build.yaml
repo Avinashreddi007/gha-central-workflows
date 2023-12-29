@@ -11,7 +11,7 @@ on:
       run-qa-aut:
         required: false
         type: string
-        default: false
+        default: 'false'
     secrets:
       sonar-token:
         required: true
