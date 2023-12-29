@@ -10,7 +10,7 @@ on:
         type: string
       run-qa-aut:
         required: false
-        type: boolean
+        type: string
         default: false
     secrets:
       sonar-token:
