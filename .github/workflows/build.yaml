@@ -6,7 +6,7 @@ on:
         required: true
         type: string
       java-version:
-        required: false  
+        required: false
         type: string
       run-qa-aut:
         required: false
@@ -27,7 +27,15 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: ${{ inputs.java-version }}
       - name: maven build
-        run: mvn clean install
+        run: |
+          #!/bin/bash
+          if [[ $GITHUB_REF_NAME == rel-* || $GITHUB_REF_NAME == hf-* ]]; 
+          then
+              artifact_name="1.1-$GITHUB_REF_NAME-$GITHUB_RUN_NUMBER"
+          else
+              artifact_name="1.1-SNAPSHOT-$GITHUB_RUN_NUMBER"
+          fi
+          mvn clean install -Drevision=$artifact_name
       # - name: SonarQube Scan
       #   uses: sonarsource/sonarqube-scan-action@master
       #   env:
@@ -59,7 +67,6 @@ jobs:
       # The possible outputs of the `quality-gate-status` variable are `PASSED`, `WARN` or `FAILED`.
       - name: "Example show SonarQube Quality Gate Status value"
         run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
-  
   docker:
     runs-on: self-hosted
     needs: mvn-build
